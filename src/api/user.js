@@ -7,7 +7,7 @@ export const loginApi = function (code) {
     uni.request({
       timeout: 10000,
       method: 'get',
-      url: baseUrl + `/api/login/mini?code=${code}`,
+      url: baseUrl + `/api/auth/wxminiLogin?code=${code}`,
       success(response) {
         let res = response.data
         // 请求成功，状态码不等于200
