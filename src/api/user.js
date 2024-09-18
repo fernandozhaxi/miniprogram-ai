@@ -9,11 +9,15 @@ export const loginApi = function (code) {
       method: 'get',
       url: baseUrl + `/api/auth/wxminiLogin?code=${code}`,
       success(response) {
-        let res = response.data
-        // 请求成功，状态码不等于200
-        const code = res.code
-        if (code === 200) {
-          resolve(res.data)
+        let data = response.data
+        if (response.statusCode === 200) {
+          // 请求成功，状态码不等于200
+          const cookie = response.header['Set-Cookie'];
+          const match = cookie.match(/refreshToken=([^;]+)/);
+          resolve({
+            token: data.token,
+            refresh_token: match[1]
+          })
         } else {
           reject()
         }
