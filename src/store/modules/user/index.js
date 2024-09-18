@@ -1,13 +1,11 @@
 
 import { defineStore } from 'pinia';
 import { loginApi } from '@/api/user'
-import { setToken, setOpenId } from '@/utils/auth'
+import { setToken, setRefreshToken, setOpenId } from '@/utils/auth'
 
 export const useUserStore = defineStore('user', {
   state: () => {
     return {
-      nickName: '',
-      avator: '',
     };
   },
   actions: {
@@ -16,8 +14,9 @@ export const useUserStore = defineStore('user', {
         // 登录
         uni.login({
           success({ code }) {
-            loginApi(code).then(({ token, openId }) => {
+            loginApi(code).then(({ token, refresh_token, openId }) => {
               setToken(token)
+              setRefreshToken(refresh_token)
               setOpenId(openId)
               resolve()
             })

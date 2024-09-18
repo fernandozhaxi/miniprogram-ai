@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { getToken, getOpenId } from '@/utils/auth'
+import { getToken, getRefreshToken } from '@/utils/auth'
 let baseUrl = import.meta.env.VITE_BASE_URL
 
 const state = reactive({
@@ -14,11 +14,13 @@ const state = reactive({
 
 onLoad(() => {
   const token = getToken()
-  const openId = getOpenId()
+  const refresh_token = getRefreshToken()
   console.log('token', token)
-  console.log('openId', openId)
-  state.url = baseUrl + (token ? `?token=${token}` : '')
-  console.log(state.url)
+  console.log('refresh_token', refresh_token)
+  let url = baseUrl + `?token=${token}` + `&refresh_token=${refresh_token}`
+  url = encodeURI(url)
+  console.log(url)
+  state.url = url
 })
 
 const { url } = toRefs(state)

@@ -1,4 +1,5 @@
 const TokenKey = 'token';
+const RTokenKey = 'refresh-token';
 const OpenIdKey = 'openId';
 
 export function setToken(token) {
@@ -12,6 +13,19 @@ export function getToken() {
 export function removeToken() {
 	return uni.removeStorageSync(TokenKey)
 }
+
+export function setRefreshToken(token) {
+	return uni.setStorageSync(RTokenKey, token)
+}
+
+export function getRefreshToken() {
+	return uni.getStorageSync(RTokenKey)
+}
+
+export function removeRefreshToken() {
+	return uni.removeStorageSync(RTokenKey)
+}
+
 
 export function setOpenId(id) {
 	return uni.setStorageSync(OpenIdKey, id)
